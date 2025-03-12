@@ -343,9 +343,13 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.rule(Predicate.MovingRight)
     )
 })
-scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorLight4, function (sprite, location) {
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile4`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`level2`)
-    tiles.placeOnTile(mySprite, tiles.getTileLocation(14, 7))
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(14, 3))
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile4`, function (sprite, location) {
+    tiles.setCurrentTilemap(tilemap`level30`)
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(6, 9))
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.loopFrames(
@@ -612,10 +616,17 @@ controller.A.onEvent(ControllerButtonEvent.Repeated, function () {
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorClosedNorth, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`level29`)
-    tiles.placeOnTile(mySprite, tiles.getTileLocation(0, 10))
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(0, 9))
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`transparency16`, function (sprite, location) {
+    tiles.setCurrentTilemap(tilemap`level2`)
 })
 controller.combos.attachCombo("B+L", function () {
 	
+})
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorLight1, function (sprite, location) {
+    tiles.setCurrentTilemap(tilemap`level4`)
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(2, 6))
 })
 controller.left.onEvent(ControllerButtonEvent.Released, function () {
     characterAnimations.loopFrames(
@@ -666,10 +677,6 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, l
     statusbar2.value += 1
     pause(5000)
 })
-scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorLight1, function (sprite, location) {
-    tiles.setCurrentTilemap(tilemap`level4`)
-    tiles.placeOnTile(mySprite, tiles.getTileLocation(2, 6))
-})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (mySprite.overlapsWith(mySprite4)) {
         tiles.setCurrentTilemap(tilemap`level23`)
@@ -691,7 +698,11 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.chestClosed, function (sp
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`level30`)
-    tiles.placeOnTile(mySprite, tiles.getTileLocation(0, 9))
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(1, 9))
+})
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorLight4, function (sprite, location) {
+    tiles.setCurrentTilemap(tilemap`level2`)
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(14, 7))
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.collectibleInsignia, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`level11`)
@@ -701,8 +712,8 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.collectibleInsignia, func
 })
 let myEnemy: Sprite = null
 let mySprite5: Sprite = null
-let list: number[] = []
 let mySprite4: Sprite = null
+let list: number[] = []
 let statusbar: StatusBarSprite = null
 let statusbar2: StatusBarSprite = null
 let mySprite: Sprite = null
@@ -799,7 +810,7 @@ mySprite2,
 1,
 characterAnimations.rule(Predicate.NotMoving)
 )
-pause(5000)
+pause(100)
 mySprite2.setPosition(0, 120)
 mySprite2.setImage(img`
     . . . . . . . . . . . . . . . . 
@@ -866,6 +877,13 @@ statusbar.setLabel("HP")
 statusbar.max = 3
 statusbar.value = 3
 statusbar.setStatusBarFlag(StatusBarFlag.SmoothTransition, true)
+list = [
+0,
+-1,
+0,
+0
+]
+blockSettings.writeNumber("lvol", 0)
 statusbar.attachToSprite(mySprite)
 scene.cameraFollowSprite(mySprite)
 tiles.placeOnTile(mySprite, tiles.getTileLocation(0, 4))
@@ -981,14 +999,81 @@ mySprite4 = sprites.create(img`
     ........................
     `, SpriteKind.Enemy)
 tiles.placeOnTile(mySprite4, tiles.getTileLocation(13, 14))
-statusbar2.setStatusBarFlag(StatusBarFlag.SmoothTransition, true)
-list = [
-0,
--1,
-0,
-0
-]
-blockSettings.writeNumber("lvol", 0)
+animation.runImageAnimation(
+mySprite4,
+[img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . f f f f f f . . . . . 
+    . . . f f e e e e f 2 f . . . . 
+    . . f f e e e e f 2 2 2 f . . . 
+    . . f e e e f f e e e e f . . . 
+    . . f f f f e e 2 2 2 2 e f . . 
+    . . f e 2 2 2 f f f f e 2 f . . 
+    . f f f f f f f e e e f f f . . 
+    . f f e 4 4 e b f 4 4 e e f . . 
+    . f e e 4 d 4 1 f d d e f . . . 
+    . . f e e e e e d d d f . . . . 
+    . . . . f 4 d d e 4 e f . . . . 
+    . . . . f e d d e 2 2 f . . . . 
+    . . . f f f e e f 5 5 f f . . . 
+    . . . f f f f f f f f f f . . . 
+    . . . . f f . . . f f f . . . . 
+    `,img`
+    . . . . . f f f f f f . . . . . 
+    . . . f f e e e e f 2 f . . . . 
+    . . f f e e e e f 2 2 2 f . . . 
+    . . f e e e f f e e e e f . . . 
+    . . f f f f e e 2 2 2 2 e f . . 
+    . . f e 2 2 2 f f f f e 2 f . . 
+    . f f f f f f f e e e f f f . . 
+    . f f e 4 4 e b f 4 4 e e f . . 
+    . f e e 4 d 4 1 f d d e f f . . 
+    . . f e e e 4 d d d d f d d f . 
+    . . . f f e e 4 e e e f b b f . 
+    . . . . f 2 2 2 4 d d e b b f . 
+    . . . . e 2 2 2 e d d e b f . . 
+    . . . . f 4 4 4 f e e f f . . . 
+    . . . . . f f f f f f . . . . . 
+    . . . . . . f f f . . . . . . . 
+    `,img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . f f f f f f . . . . . 
+    . . . f f e e e e f 2 f . . . . 
+    . . f f e e e e f 2 2 2 f . . . 
+    . . f e e e f f e e e e f . . . 
+    . . f f f f e e 2 2 2 2 e f . . 
+    . . f e 2 2 2 f f f f e 2 f . . 
+    . f f f f f f f e e e f f f . . 
+    . f f e 4 4 e b f 4 4 e e f . . 
+    . f e e 4 d 4 1 f d d e f . . . 
+    . . f e e e e e d d d f . . . . 
+    . . . . f 4 d d e 4 e f . . . . 
+    . . . . f e d d e 2 2 f . . . . 
+    . . . f f f e e f 5 5 f f . . . 
+    . . . f f f f f f f f f f . . . 
+    . . . . f f . . . f f f . . . . 
+    `,img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . f f f f f f . . . . . 
+    . . . f f e e e e f 2 f . . . . 
+    . . f f e e e e f 2 2 2 f . . . 
+    . . f e e e f f e e e e f . . . 
+    . . f f f f e e 2 2 2 2 e f . . 
+    . . f e 2 2 2 f f f f e 2 f . . 
+    . f f f f f f f e e e f f f . . 
+    . f f e 4 4 e b f 4 4 e e f . . 
+    . f e e 4 d 4 1 f d d e f f . . 
+    . . f e e e 4 d d d d f d d f . 
+    . . . . f e e 4 e e e f b b f . 
+    . . . . f 2 2 2 4 d d e b b f . 
+    . . . f f 4 4 4 e d d e b f . . 
+    . . . f f f f f f e e f f . . . 
+    . . . . f f . . . f f f . . . . 
+    `],
+100,
+false
+)
+pause(1000)
 game.onUpdate(function () {
     if (controller.down.isPressed() && controller.right.isPressed()) {
         characterAnimations.loopFrames(
