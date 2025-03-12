@@ -19,7 +19,9 @@
         "arcade-sprite-data": "github:microsoft/arcade-sprite-data#v0.2.1",
         "multiplayer": "*",
         "settings-blocks": "github:microsoft/pxt-settings-blocks#v1.0.0",
-        "sevenseg": "*"
+        "sevenseg": "*",
+        "pxt-status-bar": "github:jwunderl/pxt-status-bar#v0.4.2",
+        "arcade-story": "github:microsoft/arcade-storytelling#v1.0.3"
     },
     "files": [
         "main.blocks",
@@ -41,4 +43,3 @@
     ],
     "preferredEditor": "blocksprj"
 }
-disableTargetTemplateFiles: true
