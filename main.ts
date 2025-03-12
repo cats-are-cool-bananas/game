@@ -343,9 +343,9 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.rule(Predicate.MovingRight)
     )
 })
-scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorLight4, function (sprite, location) {
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile4`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`level2`)
-    tiles.placeOnTile(mySprite, tiles.getTileLocation(14, 7))
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(14, 3))
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     characterAnimations.loopFrames(
@@ -617,6 +617,10 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorClosedNorth, function
 controller.combos.attachCombo("B+L", function () {
 	
 })
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorLight1, function (sprite, location) {
+    tiles.setCurrentTilemap(tilemap`level4`)
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(2, 6))
+})
 controller.left.onEvent(ControllerButtonEvent.Released, function () {
     characterAnimations.loopFrames(
     mySprite,
@@ -666,10 +670,6 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, l
     statusbar2.value += 1
     pause(5000)
 })
-scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorLight1, function (sprite, location) {
-    tiles.setCurrentTilemap(tilemap`level4`)
-    tiles.placeOnTile(mySprite, tiles.getTileLocation(2, 6))
-})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (mySprite.overlapsWith(mySprite4)) {
         tiles.setCurrentTilemap(tilemap`level23`)
@@ -691,7 +691,11 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.chestClosed, function (sp
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`level30`)
-    tiles.placeOnTile(mySprite, tiles.getTileLocation(0, 9))
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(1, 9))
+})
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.floorLight4, function (sprite, location) {
+    tiles.setCurrentTilemap(tilemap`level2`)
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(14, 7))
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.collectibleInsignia, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`level11`)
